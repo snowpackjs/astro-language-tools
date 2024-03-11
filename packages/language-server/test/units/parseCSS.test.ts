@@ -1,4 +1,5 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import ts from 'typescript/lib/typescript.js';
 import { getAstroMetadata } from '../../src/core/parseAstro.js';
 import { extractStylesheets } from '../../src/core/parseCSS.js';
@@ -13,6 +14,6 @@ describe('parseCSS - Can find all the styles in an Astro file', () => {
 
 		const styleTags = extractStylesheets(snapshot, html.htmlDocument, astroAst);
 
-		expect(styleTags.length).to.equal(2);
+		assert.equal(styleTags.length, 2);
 	});
 });

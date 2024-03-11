@@ -1,6 +1,6 @@
 import { Range } from '@volar/language-server';
-import { expect } from 'chai';
-import { describe } from 'mocha';
+import assert from 'node:assert/strict';
+import { describe, before, it } from 'node:test';
 import { type LanguageServer, getLanguageServer } from '../server.js';
 
 describe('Formatting', () => {
@@ -15,7 +15,7 @@ describe('Formatting', () => {
 			insertSpaces: true,
 		});
 
-		expect(formatEdits).to.deep.equal([
+		assert.deepEqual(formatEdits, [
 			{
 				range: Range.create(0, 0, 3, 3),
 				newText: '---\n\n---\n',

@@ -1,14 +1,14 @@
 import os from 'node:os';
 import path from 'node:path';
-import { expect } from 'chai';
-import { before, describe, it } from 'mocha';
+import assert from 'node:assert/strict';
+import { describe, before, it } from 'node:test';
 import { AstroCheck, CheckResult } from '../../dist/check.js';
 
 describe('AstroCheck', async () => {
 	let checker: AstroCheck;
 	let result: CheckResult;
 
-	before(async function () {
+	before(async function (this: any) {
 		// First init can sometimes be slow in CI, even though the rest of the tests will be fast.
 		this.timeout(50000);
 		checker = new AstroCheck(
@@ -20,33 +20,31 @@ describe('AstroCheck', async () => {
 	});
 
 	it('Can check files and return errors', async () => {
-		expect(result).to.not.be.undefined;
-		expect(result.fileResult).to.have.lengthOf(4);
+		assert.notEqual(result, undefined);
+		assert.equal(result.fileResult.length, 4);
 	});
 
 	it("Returns the file's URL", async () => {
-		expect(result.fileResult[0].fileUrl).to.not.be.undefined;
-		expect(result.fileResult[0].fileUrl instanceof URL).to.be.true;
+		assert.notEqual(result.fileResult[0].fileUrl, undefined);
+		assert.equal(result.fileResult[0].fileUrl instanceof URL, true);
 	});
 
 	it("Returns the file's content", async () => {
-		expect(result.fileResult[0].fileContent).to.not.be.undefined;
-		expect(result.fileResult[0].fileContent).to.deep.equal(
-			`---${os.EOL}console.log(doesntExist);${os.EOL}---${os.EOL}`
-		);
+		assert.notEqual(result.fileResult[0].fileContent, undefined);
+		assert.deepEqual(result.fileResult[0].fileContent, `---${os.EOL}console.log(doesntExist);${os.EOL}---${os.EOL}`);
 	});
 
 	it('Can return the total amount of errors, warnings and hints', async () => {
-		expect(result.errors).to.equal(2);
-		expect(result.warnings).to.equal(1);
-		expect(result.hints).to.equal(1);
+		assert.equal(result.errors, 2);
+		assert.equal(result.warnings, 1);
+		assert.equal(result.hints, 1);
 	});
 
 	it('Can return the total amount of files checked', async () => {
-		expect(result.fileChecked).to.equal(6);
+		assert.equal(result.fileChecked, 6);
 	});
 
 	it('Can return the status of the check', async () => {
-		expect(result.status).to.equal('completed');
+		assert.equal(result.status, 'completed');
 	});
 });

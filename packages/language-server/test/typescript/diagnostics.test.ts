@@ -5,8 +5,8 @@ import {
 	FullDocumentDiagnosticReport,
 	Range,
 } from '@volar/language-server';
-import { expect } from 'chai';
-import { before, describe, it } from 'mocha';
+import assert from 'node:assert/strict';
+import { describe, before, it } from 'node:test';
 import { type LanguageServer, getLanguageServer } from '../server.js';
 
 describe('TypeScript - Diagnostics', async () => {
@@ -21,12 +21,12 @@ describe('TypeScript - Diagnostics', async () => {
 		)) as FullDocumentDiagnosticReport;
 
 		// We should only have one error here.
-		expect(diagnostics.items).length(1);
+		assert.equal(diagnostics.items.length, 1);
 
 		// Data here is Volar specific, and is not too relevant to test. We'll throw it out.
 		const diagnostic: Diagnostic = { ...diagnostics.items[0], data: {} };
 
-		expect(diagnostic).to.deep.equal({
+		assert.deepEqual(diagnostic, {
 			code: 2304,
 			data: {},
 			message: "Cannot find name 'NotAThing'.",
@@ -41,10 +41,10 @@ describe('TypeScript - Diagnostics', async () => {
 		const diagnostics = (await languageServer.handle.sendDocumentDiagnosticRequest(
 			document.uri
 		)) as FullDocumentDiagnosticReport;
-		expect(diagnostics.items).length(1);
+		assert.equal(diagnostics.items.length, 1);
 
 		const diagnostic: Diagnostic = { ...diagnostics.items[0], data: {} };
-		expect(diagnostic).to.deep.equal({
+		assert.deepEqual(diagnostic, {
 			code: 2304,
 			data: {},
 			message: "Cannot find name 'nope'.",
@@ -62,10 +62,10 @@ describe('TypeScript - Diagnostics', async () => {
 		const diagnostics = (await languageServer.handle.sendDocumentDiagnosticRequest(
 			document.uri
 		)) as FullDocumentDiagnosticReport;
-		expect(diagnostics.items).length(1);
+		assert.equal(diagnostics.items.length, 1);
 
 		diagnostics.items = diagnostics.items.map((diag) => ({ ...diag, data: {} }));
-		expect(diagnostics.items).to.deep.equal([
+		assert.deepEqual(diagnostics.items, [
 			{
 				code: 2322,
 				data: {},
@@ -86,6 +86,6 @@ describe('TypeScript - Diagnostics', async () => {
 		const diagnostics = (await languageServer.handle.sendDocumentDiagnosticRequest(
 			document.uri
 		)) as FullDocumentDiagnosticReport;
-		expect(diagnostics.items).length(1);
+		assert.equal(diagnostics.items.length, 1);
 	});
 });

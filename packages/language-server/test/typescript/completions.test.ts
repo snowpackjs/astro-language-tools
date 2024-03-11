@@ -1,6 +1,6 @@
 import { Position } from '@volar/language-server';
-import { expect } from 'chai';
-import { before, describe, it } from 'mocha';
+import assert from 'node:assert/strict';
+import { after, describe, before, it } from 'node:test';
 import { type LanguageServer, getLanguageServer } from '../server.js';
 
 describe('TypeScript - Completions', async () => {
@@ -15,7 +15,7 @@ describe('TypeScript - Completions', async () => {
 			Position.create(1, 1)
 		);
 
-		expect(completions?.items).to.not.be.empty;
+		assert.notEqual(completions?.items, '');
 	});
 
 	it('Can get completions in the template', async () => {
@@ -25,7 +25,7 @@ describe('TypeScript - Completions', async () => {
 			Position.create(0, 1)
 		);
 
-		expect(completions?.items).to.not.be.empty;
+		assert.notEqual(completions?.items, '');
 	});
 
 	it('sort completions starting with `astro:` higher than other imports', async () => {
@@ -39,7 +39,7 @@ describe('TypeScript - Completions', async () => {
 			(item) => item.labelDetails?.description === 'astro:assets'
 		);
 
-		expect(imageCompletion?.sortText).to.equal('\x00￿16');
+		assert.equal(imageCompletion?.sortText, '\x00￿16');
 	});
 
 	it('Can get completions in all kinds of script tags', async () => {
@@ -57,8 +57,8 @@ describe('TypeScript - Completions', async () => {
 			);
 
 			const allLabels = completions?.items.map((item) => item.label);
-			expect(completions?.items).to.not.be.empty;
-			expect(allLabels).to.include('log');
+			assert.notEqual(completions?.items, '');
+			assert.equal(allLabels.includes('log'), true);
 		}
 	});
 });

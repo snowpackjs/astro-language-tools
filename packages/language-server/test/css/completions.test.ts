@@ -1,6 +1,6 @@
 import { Position } from '@volar/language-server';
-import { expect } from 'chai';
-import { describe } from 'mocha';
+import assert from 'node:assert/strict';
+import { describe, before, it } from 'node:test';
 import { LanguageServer, getLanguageServer } from '../server.js';
 
 describe('CSS - Completions', () => {
@@ -15,7 +15,7 @@ describe('CSS - Completions', () => {
 			Position.create(0, 18)
 		);
 
-		expect(completions!.items).to.not.be.empty;
+		assert.notEqual(completions!.items, '');
 	});
 
 	it('Can provide completions for CSS values', async () => {
@@ -28,7 +28,7 @@ describe('CSS - Completions', () => {
 			Position.create(0, 21)
 		);
 
-		expect(completions!.items).to.not.be.empty;
+		assert.notEqual(completions!.items, '');
 	});
 
 	it('Can provide completions inside inline styles', async () => {
@@ -38,7 +38,7 @@ describe('CSS - Completions', () => {
 			Position.create(0, 18)
 		);
 
-		expect(completions!.items).to.not.be.empty;
-		expect(completions?.items.map((i) => i.label)).to.include('aliceblue');
+		assert.notEqual(completions!.items, '');
+		assert.equal(completions?.items.map((i) => i.label).includes('aliceblue'), true);
 	});
 });

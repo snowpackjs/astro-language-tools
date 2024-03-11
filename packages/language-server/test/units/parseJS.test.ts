@@ -1,4 +1,5 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import ts from 'typescript/lib/typescript.js';
 import { getAstroMetadata } from '../../src/core/parseAstro.js';
 import { parseHTML } from '../../src/core/parseHTML.js';
@@ -13,7 +14,7 @@ describe('parseJS - Can find all the scripts in an Astro file', () => {
 
 		const scriptTags = extractScriptTags(snapshot, html.htmlDocument, astroAst);
 
-		expect(scriptTags.length).to.equal(2);
+		assert.equal(scriptTags.length, 2);
 	});
 
 	it('Ignore JSON scripts', () => {
@@ -24,7 +25,7 @@ describe('parseJS - Can find all the scripts in an Astro file', () => {
 
 		const scriptTags = extractScriptTags(snapshot, html.htmlDocument, astroAst);
 
-		expect(scriptTags.length).to.equal(0);
+		assert.equal(scriptTags.length, 0);
 	});
 
 	it('returns the proper capabilities for inline script tags', () => {
@@ -36,7 +37,7 @@ describe('parseJS - Can find all the scripts in an Astro file', () => {
 		const scriptTags = extractScriptTags(snapshot, html.htmlDocument, astroAst);
 
 		scriptTags[0].mappings.forEach((mapping) => {
-			expect(mapping.data).to.deep.equal({
+			assert.deepEqual(mapping.data, {
 				verification: true,
 				completion: true,
 				semantic: true,

@@ -1,6 +1,6 @@
 import { Position } from '@volar/language-server';
-import { expect } from 'chai';
-import { describe } from 'mocha';
+import assert from 'node:assert/strict';
+import { describe, before, it } from 'node:test';
 import { LanguageServer, getLanguageServer } from '../server.js';
 
 describe('CSS - Hover', () => {
@@ -17,6 +17,6 @@ describe('CSS - Hover', () => {
 		);
 		const hover = await languageServer.handle.sendHoverRequest(document.uri, Position.create(2, 7));
 
-		expect(hover?.contents).to.not.be.empty;
+		assert.notEqual(hover?.contents, '');
 	});
 });
