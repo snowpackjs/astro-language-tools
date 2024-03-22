@@ -1,0 +1,37 @@
+{
+  "name": "AstroJSX",
+  "scopeName": "source.astroJSX",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#jsx"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "begin": "<!--",
+      "end": "-->",
+      "captures": {
+        "0": {
+          "name": "punctuation.definition.comment.astroJSX"
+        }
+      },
+      "name": "comment.block.astroJSX",
+      "patterns": [
+        {
+          "match": "\\G-?>|<!--(?!>)|<!-(?=-->)|--!>",
+          "name": "invalid.illegal.characters-not-allowed-here.astroJSX"
+        }
+      ]
+    },
+    "jsx": {
+      "patterns": [
+        {
+          "include": "source.js.jsx"
+        }
+      ]
+    }
+  }
+}

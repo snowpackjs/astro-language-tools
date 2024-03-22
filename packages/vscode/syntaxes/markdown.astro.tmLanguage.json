@@ -49,7 +49,7 @@
               "contentName": "meta.embedded.block.astro.frontmatter",
               "patterns": [
                 {
-                  "include": "source.tsx"
+                  "include": "source.ts"
                 }
               ]
             },

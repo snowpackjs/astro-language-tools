@@ -162,8 +162,7 @@
           "source.stylus": "stylus",
           "source.js": "javascript",
           "source.ts": "typescript",
-          "source.json": "json",
-          "source.tsx": "typescriptreact"
+          "source.json": "json"
         },
         "unbalancedBracketScopes": [
           "keyword.operator.relational",
@@ -176,11 +175,16 @@
       {
         "scopeName": "text.html.markdown.astro",
         "path": "./syntaxes/markdown.astro.tmLanguage.json",
-        "injectTo": ["text.html.markdown", "source.astro"],
+        "injectTo": ["text.html.markdown"],
         "embeddedLanguages": {
           "meta.embedded.block.astro": "astro",
           "meta.embedded.block.astro.frontmatter": "typescriptreact"
         }
+      },
+      {
+        "scopeName": "source.astroJSX",
+        "path": "./syntaxes/astroJSX.tmLanguage.json",
+        "injectTo": ["source.astro"]
       }
     ]
   },
@@ -188,7 +192,7 @@
     "prebuild": "cd ../ts-plugin && pnpm build",
     "build": "tsc && pnpm prebuild && node scripts/build.mjs -- --minify",
     "dev": "node scripts/build.mjs -- --watch",
-    "build:grammar": "npx js-yaml syntaxes/astro.tmLanguage.src.yaml > syntaxes/astro.tmLanguage.json",
+    "build:grammar": "npx js-yaml syntaxes/astro.tmLanguage.src.yaml > syntaxes/astro.tmLanguage.json && npx js-yaml syntaxes/astroJSX.tmLanguage.src.yaml > syntaxes/astroJSX.tmLanguage.json",
     "test": "pnpm test:vscode && pnpm test:grammar",
     "test:vscode": "node ./test/runTest.js",
     "test:grammar": "pnpm build:grammar && node ./test/grammar/test.mjs",

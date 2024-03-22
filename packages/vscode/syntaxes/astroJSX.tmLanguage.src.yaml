@@ -1,0 +1,36 @@
+---
+# Let's take down Microsoft! 🦜🏴‍☠️
+# Astro expression syntax is really similar to JSX, but it's not JSX.
+# So, we need to create a new syntax for it, where we include the JSX syntax as a base,
+# and add some Astro specific patterns over it.
+name: AstroJSX
+scopeName: source.astroJSX
+
+patterns:
+  - include: '#comments'
+  - include: '#jsx'
+
+repository:
+  # ----------
+  # HTML PATTERNS
+
+  # Basic HTML comments - not supported by JSX in expressions, but Astro does.
+  comments:
+    begin: <!--
+    end: -->
+    captures:
+      0: { name: punctuation.definition.comment.astroJSX }
+    name: comment.block.astroJSX
+    patterns:
+      # Validations
+      - {
+          match: '\G-?>|<!--(?!>)|<!-(?=-->)|--!>',
+          name: invalid.illegal.characters-not-allowed-here.astroJSX,
+        }
+
+  # ----------
+  # JSX PATTERNS
+  # The foundation for AstroJSX.
+  jsx:
+    patterns:
+      - include: 'source.js.jsx'

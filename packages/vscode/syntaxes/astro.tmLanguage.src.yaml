@@ -222,13 +222,13 @@ repository:
         end: \}
         beginCaptures: { 0: { name: punctuation.section.embedded.begin.astro } }
         endCaptures: { 0: { name: punctuation.section.embedded.end.astro } }
-        contentName: meta.embedded.expression.astro source.tsx
+        contentName: meta.embedded.expression.astro source.astroJSX
         patterns:
           # Object literals - usually used within attributes.
           - begin: \G\s*(?={)
             end: (?<=})
             patterns: [include: source.tsx#object-literal]
-          - include: source.tsx
+          - include: source.astroJSX
 
   # Entities
   # Adapted from https://github.com/microsoft/vscode/blob/12605e53052114df3ac512c59936e69c331f0337/extensions/html/syntaxes/html.tmLanguage.json#L532
